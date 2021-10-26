@@ -1,42 +1,40 @@
-const presentation = {
-    title: 'My Presentation',
-    slides: [
-
-        {
-            Title
-        },
-        {
-            Slide: [
-                {
-                    background = {
-                        colour:  red,
-                        directory: 'C://...'
-                    }
+const app = {
+    CommandsHistory,
+    mode,
+    presentation = {
+        selectSlides,
+        selectElements, 
+        title,
+        slides: [
+            {
+                randomId,
+                background: {
+                    img: 'directory',
+                    colour: black,
                 },
-                {
-                    Img: 'http://...'
-                }, 
-                {
-                    Text = {
-                        font: calibri,
-                        size: 14,
-                        str: 'hello world',
-                    }
-                }, 
-                {
-                    Primitive = {
-                        colourline: white,
-                        colourback: black,
-                        str: 'circle 11 5'
+                block: {
+                    position,
+                    blockSize,
+                    elemets: {
+                        elementId,
+                        img: 'directory',
+                        text: {
+                            size,
+                            text,
+                            font
+                        },
+                        Primitive: {
+                            type: {
+                                type,
+                                colourback,
+                                colourline
+                            }
+                        }
                     }
                 }
-            ]
-        },
-        {
-            CommandsHistory
-        }
-
-    ]
+            }
+        ]
+    }
 }
 
 /**
