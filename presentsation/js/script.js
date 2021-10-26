@@ -47,15 +47,18 @@ function addSlide(Editor, Slide) {}
 /**
  * @param {Editor} Editor
  * @param {Slide} Slide
+ * @param {number} randomId
+ * @return {Editor}
  */
-function del(editor, Slide) {}
+function del(editor, Slide, randomId) {}
 
 /**
  * @param {number} id
  * @param {string} colour
+ * @param {string} directory
  * @return {Slide}
  */
-function changeBackgroundSline(id, colour) {}
+function changeBackgroundSline(id, colour, directory) {}
 
 /**
  * @param {Editor} Editor
@@ -72,3 +75,40 @@ function addText(Editor, Text) {}
  */
 function changeText(id, size, font) {}
 
+/**
+ * @param {Editor} Editor
+ * @param {string} URL
+ * @return {Editor}
+ */
+function addImg(Editor, URL) {}
+
+/**
+ * @param {Editor} Editor
+ * @param {string} type
+ * @return {Editor}
+ */
+function addPrimitive(Editor, type) {}
+
+/**
+ * @param {Editor} Editor
+ * @param {string} colourback
+ * @param {string} colourline
+ * @return {Editor}
+ */
+function editPrimitive(Editor, colourback, colourline) {}
+
+/**
+ * @param {show} show 
+ * @param {presentation} presentation
+ * @return {show}
+ */
+function showmode(show, presentation) {}
+
+
+/**
+ * @param {Editor} Editor
+ * @param {string} position 
+ * @param {number} elementId
+ * @return {Editor}
+ */
+function selectElements(Editor, position, elementId) {}
