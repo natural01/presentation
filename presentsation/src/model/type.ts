@@ -1,88 +1,78 @@
-type editor = {
+export type editor = {
     mode: presentationMode,
     presentation: presentation,
     commandsHistory: history,
 }
 
-type presentationMode = {
-    editor: true,
-    view: false,
-}
+export type presentationMode = "editor" | "view"
 
-type history = {
+export type history = {
     undo: undo[],
     redo: redo[],
 }
 
-type undo = presentation
-type redo = presentation
+export type undo = presentation
+export type redo = presentation
 
-type presentation = {
+export type presentation = {
     selectSlides: number,
     selectElements: number,
     title: string,
     slides: slides[],
 }
 
-type slides = {
+export type slides = {
     slide: slide,
 }
 
-type slide = {
+export type slide = {
     slideId: number
     background: background,
     block: block,
 }
 
-type background = {
+export type background = {
     src: string,
     color: string,
 }
 
-type block = {
+export type block = {
     position: position,
     blockSize: blockSize,
     elements: elements,
 }
 
-type position = {
+export type position = {
     x: number,
     y: number,
 }
 
-type blockSize = {
+export type blockSize = {
     width: number,
     height: number,
 }
 
-type elements = {
+export type elements = {
     elementId: number,
     img: string,
     text: text,
     primitive: primitive,
 }
 
-type text = {
+export type text = {
     size: number,
     text: string,
     font: string,
 }
 
-type primitive = {
+export type primitive = {
     type: primitiveType,
     colourback: string,
     colourline: string,
 }
 
-enum primitiveType {
+export enum primitiveType {
     Circle,
     Triangle,
     Rectangle,
-}
-
-export {
-    editor, text, slide, block,
-    primitiveType, primitive, blockSize,
-    history, elements, position, presentationMode,
-    presentation, redo, slides, undo, background
 }
