@@ -14,69 +14,144 @@ export type Editor = {
                     background: {
                         img: 'directory',
                         colour: '#000'
-                    },
-                    block: {
-                        position: {
-                            x: 12,
-                            y: 12
-                        },
-                        blockSize: {
-                            widht: 12,
-                            height: 12
-                        },
-                        elemets: {
-                            elementId: 1234,
-                            img: 'directory',
+                    },   
+                    elemets: [
+                        element: {
+                            position: {
+                                x: 12,
+                                y: 12
+                            },
+                            blockSize: {
+                                widht: 12,
+                                height: 12
+                            },
+                            elementId: 124,
                             text: {
                                 size: 12,
                                 text: 'hello',
                                 font: 'bold'
+                            }                            
+                        },
+                        element: {
+                            position: {
+                                x: 14,
+                                y: 100
                             },
+                            blockSize: {
+                                widht: 22,
+                                height: 12
+                            },
+                            elementId: 34,
                             primitive: {
                                 type: {
                                     type: 'circle',
                                     colourback: '#111',
-                                    colourline: '#000'
+                                    colourline: '#777'
                                 }
                             }
+                        },
+                    ]
+                },
+            },
+            {
+                slide: {
+                    randomId: 1,
+                    background: {
+                        img: 'directory',
+                        colour: '#222'
+                    },
+                    elemets: [
+                        element: {
+                            position: {
+                                x: 12,
+                                y: 12
+                            },
+                            blockSize: {
+                                widht: 6,
+                                height: 10
+                            },
+                            elementId: 2,
+                            text: {
+                                size: 10,
+                                text: 'done',
+                                font: 'italic'
+                            }
+                        },
+                        element: {
+                            position: {
+                                x: 14,
+                                y: 100
+                            },
+                            blockSize: {
+                                widht: 22,
+                                height: 12
+                            },
+                            elementId: 34,
+                            text: {
+                                size: 13,
+                                text: 'all done',
+                                font: 'italic'
+                            }
+                        },
+                        element: {
+                            position: {
+                                x: 14,
+                                y: 100
+                            },
+                            blockSize: {
+                                widht: 22,
+                                height: 12
+                            },
+                            elementId: 34,
+                            img: {
+                                src: ' '
+                            }
                         }
-                    }
+                    ]
                 },
 
             },
             {
                 slide: {
-                    randomId: 34,
+                    randomId: 1,
                     background: {
                         img: 'directory',
-                        colour: '#000'
+                        colour: '#222'
                     },
-                    block: {
-                        position: {
-                            x: 12,
-                            y: 12
-                        },
-                        blockSize: {
-                            widht: 12,
-                            height: 12
-                        },
-                        elemets: {
-                            elementId: 14,
-                            img: 'directory',
-                            text: {
-                                size: 12,
-                                text: 'hello',
-                                font: 'bold'
+                    elemets: [
+                        element: {
+                            position: {
+                                x: 12,
+                                y: 12
                             },
-                            primitive: {
-                                type: {
-                                    type: 'circle',
-                                    colourback: '#111',
-                                    colourline: '#000'
-                                }
+                            blockSize: {
+                                widht: 6,
+                                height: 10
+                            },
+                            elementId: 2,
+                            text: {
+                                size: 10,
+                                text: 'done',
+                                font: 'italic'
                             }
-                        }
-                    }
+                        },
+                        element: {
+                            position: {
+                                x: 14,
+                                y: 100
+                            },
+                            blockSize: {
+                                widht: 22,
+                                height: 12
+                            },
+                            elementId: 34,
+                            text: {
+                                size: 13,
+                                text: 'all done',
+                                font: 'italic'
+                            }
+                        },                 
+                    ]
                 },
 
             },
@@ -85,7 +160,7 @@ export type Editor = {
     },
     commandsHistory: {
         undo: [
-            presentation: {
+            {
                 selectslides: 1234,
                 selectElements: 1234,
                 title: 'new title',
@@ -97,39 +172,50 @@ export type Editor = {
                                 img: 'directory',
                                 colour: '#000'
                             },
-                            block: {
-                                position: {
-                                    x: 12,
-                                    y: 12
-                                },
-                                blockSize: {
-                                    widht: 12,
-                                    height: 12
-                                },
-                                elemets: {
-                                    elementId: 1234,
-                                    img: 'directory',
+                            elemets: [
+                                element: {
+                                    position: {
+                                        x: 12,
+                                        y: 12
+                                    },
+                                    blockSize: {
+                                        widht: 12,
+                                        height: 12
+                                    },
+                                    elementId: 124,
                                     text: {
                                         size: 12,
                                         text: 'hello',
                                         font: 'bold'
+                                    }
+                                },
+                                element: {
+                                    position: {
+                                        x: 14,
+                                        y: 100
                                     },
+                                    blockSize: {
+                                        widht: 22,
+                                        height: 12
+                                    },
+                                    elementId: 34,
                                     primitive: {
                                         type: {
                                             type: 'circle',
                                             colourback: '#111',
-                                            colourline: '#000'
+                                            colourline: '#777'
                                         }
                                     }
-                                }
-                            }
+                                },
+                            ]
                         },
+                    },
 
-                    }
+
 
                 ]
             },
-            presentation: {
+            {
                 selectslides: 1234,
                 selectElements: 1234,
                 title: 'new title',
@@ -141,74 +227,262 @@ export type Editor = {
                                 img: 'directory',
                                 colour: '#000'
                             },
-                            block: {
-                                position: {
-                                    x: 12,
-                                    y: 12
-                                },
-                                blockSize: {
-                                    widht: 12,
-                                    height: 12
-                                },
-                                elemets: {
-                                    elementId: 1234,
-                                    img: 'directory',
+                            elemets: [
+                                element: {
+                                    position: {
+                                        x: 12,
+                                        y: 12
+                                    },
+                                    blockSize: {
+                                        widht: 12,
+                                        height: 12
+                                    },
+                                    elementId: 124,
                                     text: {
                                         size: 12,
                                         text: 'hello',
                                         font: 'bold'
+                                    }
+                                },
+                                element: {
+                                    position: {
+                                        x: 14,
+                                        y: 100
                                     },
+                                    blockSize: {
+                                        widht: 22,
+                                        height: 12
+                                    },
+                                    elementId: 34,
                                     primitive: {
                                         type: {
                                             type: 'circle',
                                             colourback: '#111',
-                                            colourline: '#000'
+                                            colourline: '#777'
                                         }
                                     }
+                                },
+                            ]
+                        },
+                    },
+                    {
+                        slide: {
+                            randomId: 1,
+                            background: {
+                                img: 'directory',
+                                colour: '#222'
+                            },
+                            elemets: [
+                                element: {
+                                    position: {
+                                        x: 12,
+                                        y: 12
+                                    },
+                                    blockSize: {
+                                        widht: 6,
+                                        height: 10
+                                    },
+                                    elementId: 2,
+                                    text: {
+                                        size: 10,
+                                        text: 'done',
+                                        font: 'italic'
+                                    }
+                                },
+                                element: {
+                                    position: {
+                                        x: 14,
+                                        y: 100
+                                    },
+                                    blockSize: {
+                                        widht: 22,
+                                        height: 12
+                                    },
+                                    elementId: 34,
+                                    text: {
+                                        size: 13,
+                                        text: 'all done',
+                                        font: 'italic'
+                                    }
+                                },
+                                element: {
+                                    position: {
+                                        x: 14,
+                                        y: 100
+                                    },
+                                    blockSize: {
+                                        widht: 22,
+                                        height: 12
+                                    },
+                                    elementId: 34,
+                                    img: {
+                                        src: ' '
+                                    }
                                 }
-                            }
+                            ]
+                        },
+
+                    },
+
+
+                ]
+            },
+
+            {
+                selectslides: 1234,
+                selectElements: 1234,
+                title: 'new title',
+                slides: [
+                    {
+                        slide: {
+                            randomId: 1234,
+                            background: {
+                                img: 'directory',
+                                colour: '#000'
+                            },
+                            elemets: [
+                                element: {
+                                    position: {
+                                        x: 12,
+                                        y: 12
+                                    },
+                                    blockSize: {
+                                        widht: 12,
+                                        height: 12
+                                    },
+                                    elementId: 124,
+                                    text: {
+                                        size: 12,
+                                        text: 'hello',
+                                        font: 'bold'
+                                    }
+                                },
+                                element: {
+                                    position: {
+                                        x: 14,
+                                        y: 100
+                                    },
+                                    blockSize: {
+                                        widht: 22,
+                                        height: 12
+                                    },
+                                    elementId: 34,
+                                    primitive: {
+                                        type: {
+                                            type: 'circle',
+                                            colourback: '#111',
+                                            colourline: '#777'
+                                        }
+                                    }
+                                },
+                            ]
+                        },
+                    },
+                    {
+                        slide: {
+                            randomId: 1,
+                            background: {
+                                img: 'directory',
+                                colour: '#222'
+                            },
+                            elemets: [
+                                element: {
+                                    position: {
+                                        x: 12,
+                                        y: 12
+                                    },
+                                    blockSize: {
+                                        widht: 6,
+                                        height: 10
+                                    },
+                                    elementId: 2,
+                                    text: {
+                                        size: 10,
+                                        text: 'done',
+                                        font: 'italic'
+                                    }
+                                },
+                                element: {
+                                    position: {
+                                        x: 14,
+                                        y: 100
+                                    },
+                                    blockSize: {
+                                        widht: 22,
+                                        height: 12
+                                    },
+                                    elementId: 34,
+                                    text: {
+                                        size: 13,
+                                        text: 'all done',
+                                        font: 'italic'
+                                    }
+                                },
+                                element: {
+                                    position: {
+                                        x: 14,
+                                        y: 100
+                                    },
+                                    blockSize: {
+                                        widht: 22,
+                                        height: 12
+                                    },
+                                    elementId: 34,
+                                    img: {
+                                        src: ' '
+                                    }
+                                }
+                            ]
                         },
 
                     },
                     {
                         slide: {
-                            randomId: 34,
+                            randomId: 1,
                             background: {
                                 img: 'directory',
-                                colour: '#000'
+                                colour: '#222'
                             },
-                            block: {
-                                position: {
-                                    x: 12,
-                                    y: 12
-                                },
-                                blockSize: {
-                                    widht: 12,
-                                    height: 12
-                                },
-                                elemets: {
-                                    elementId: 14,
-                                    img: 'directory',
-                                    text: {
-                                        size: 12,
-                                        text: 'hello',
-                                        font: 'bold'
+                            elemets: [
+                                element: {
+                                    position: {
+                                        x: 12,
+                                        y: 12
                                     },
-                                    primitive: {
-                                        type: {
-                                            type: 'circle',
-                                            colourback: '#111',
-                                            colourline: '#000'
-                                        }
+                                    blockSize: {
+                                        widht: 6,
+                                        height: 10
+                                    },
+                                    elementId: 2,
+                                    text: {
+                                        size: 10,
+                                        text: 'done',
+                                        font: 'italic'
                                     }
-                                }
-                            }
+                                },
+                                element: {
+                                    position: {
+                                        x: 14,
+                                        y: 100
+                                    },
+                                    blockSize: {
+                                        widht: 22,
+                                        height: 12
+                                    },
+                                    elementId: 34,
+                                    text: {
+                                        size: 13,
+                                        text: 'all done',
+                                        font: 'italic'
+                                    }
+                                },
+                            ]
                         },
 
                     },
 
                 ]
-            },
+            }
         ],
         redo: [
             // список презентаций после изменений
@@ -219,20 +493,21 @@ export type Editor = {
 export type PresentationMode = "editor" | "show"
 
 export type history = {
-        undo: [
-            presentation: {
-                selectslides: 1234,
-                selectElements: 1234,
-                title: 'new title',
-                slides: [
-                    {
-                        slide: {
-                            randomId: 1234,
-                            background: {
-                                img: 'directory',
-                                colour: '#000'
-                            },
-                            block: {
+    undo: [
+        {
+            selectslides: 1234,
+            selectElements: 1234,
+            title: 'new title',
+            slides: [
+                {
+                    slide: {
+                        randomId: 1234,
+                        background: {
+                            img: 'directory',
+                            colour: '#000'
+                        },
+                        elemets: [
+                            element: {
                                 position: {
                                     x: 12,
                                     y: 12
@@ -241,78 +516,53 @@ export type history = {
                                     widht: 12,
                                     height: 12
                                 },
-                                elemets: {
-                                    elementId: 1234,
-                                    img: 'directory',
-                                    text: {
-                                        size: 12,
-                                        text: 'hello',
-                                        font: 'bold'
-                                    },
-                                    primitive: {
-                                        type: {
-                                            type: 'circle',
-                                            colourback: '#111',
-                                            colourline: '#000'
-                                        }
-                                    }
+                                elementId: 124,
+                                text: {
+                                    size: 12,
+                                    text: 'hello',
+                                    font: 'bold'
                                 }
-                            }
-                        },
-
-                    }
-
-                ]
-            },
-            presentation: {
-                selectslides: 1234,
-                selectElements: 1234,
-                title: 'new title',
-                slides: [
-                    {
-                        slide: {
-                            randomId: 1234,
-                            background: {
-                                img: 'directory',
-                                colour: '#000'
                             },
-                            block: {
+                            element: {
                                 position: {
-                                    x: 12,
-                                    y: 12
+                                    x: 14,
+                                    y: 100
                                 },
                                 blockSize: {
-                                    widht: 12,
+                                    widht: 22,
                                     height: 12
                                 },
-                                elemets: {
-                                    elementId: 1234,
-                                    img: 'directory',
-                                    text: {
-                                        size: 12,
-                                        text: 'hello',
-                                        font: 'bold'
-                                    },
-                                    primitive: {
-                                        type: {
-                                            type: 'circle',
-                                            colourback: '#111',
-                                            colourline: '#000'
-                                        }
+                                elementId: 34,
+                                primitive: {
+                                    type: {
+                                        type: 'circle',
+                                        colourback: '#111',
+                                        colourline: '#777'
                                     }
                                 }
-                            }
-                        },
-
+                            },
+                        ]
                     },
-                    {
-                        slide: {
-                            randomId: 34,
-                            background: {
-                                img: 'directory',
-                                colour: '#000'
-                            },
-                            block: {
+                },
+
+
+
+            ]
+        },
+        {
+            selectslides: 1234,
+            selectElements: 1234,
+            title: 'new title',
+            slides: [
+                {
+                    slide: {
+                        randomId: 1234,
+                        background: {
+                            img: 'directory',
+                            colour: '#000'
+                        },
+                        elemets: [
+                            element: {
                                 position: {
                                     x: 12,
                                     y: 12
@@ -321,48 +571,272 @@ export type history = {
                                     widht: 12,
                                     height: 12
                                 },
-                                elemets: {
-                                    elementId: 14,
-                                    img: 'directory',
-                                    text: {
-                                        size: 12,
-                                        text: 'hello',
-                                        font: 'bold'
-                                    },
-                                    primitive: {
-                                        type: {
-                                            type: 'circle',
-                                            colourback: '#111',
-                                            colourline: '#000'
-                                        }
+                                elementId: 124,
+                                text: {
+                                    size: 12,
+                                    text: 'hello',
+                                    font: 'bold'
+                                }
+                            },
+                            element: {
+                                position: {
+                                    x: 14,
+                                    y: 100
+                                },
+                                blockSize: {
+                                    widht: 22,
+                                    height: 12
+                                },
+                                elementId: 34,
+                                primitive: {
+                                    type: {
+                                        type: 'circle',
+                                        colourback: '#111',
+                                        colourline: '#777'
                                     }
                                 }
-                            }
+                            },
+                        ]
+                    },
+                },
+                {
+                    slide: {
+                        randomId: 1,
+                        background: {
+                            img: 'directory',
+                            colour: '#222'
                         },
-
+                        elemets: [
+                            element: {
+                                position: {
+                                    x: 12,
+                                    y: 12
+                                },
+                                blockSize: {
+                                    widht: 6,
+                                    height: 10
+                                },
+                                elementId: 2,
+                                text: {
+                                    size: 10,
+                                    text: 'done',
+                                    font: 'italic'
+                                }
+                            },
+                            element: {
+                                position: {
+                                    x: 14,
+                                    y: 100
+                                },
+                                blockSize: {
+                                    widht: 22,
+                                    height: 12
+                                },
+                                elementId: 34,
+                                text: {
+                                    size: 13,
+                                    text: 'all done',
+                                    font: 'italic'
+                                }
+                            },
+                            element: {
+                                position: {
+                                    x: 14,
+                                    y: 100
+                                },
+                                blockSize: {
+                                    widht: 22,
+                                    height: 12
+                                },
+                                elementId: 34,
+                                img: {
+                                    src: ' '
+                                }
+                            }
+                        ]
                     },
 
-                ]
-            },
-        ],
-        redo: [
-            // список презентаций после изменений
-        ]
+                },
+
+
+            ]
+        },
+
+        {
+            selectslides: 1234,
+            selectElements: 1234,
+            title: 'new title',
+            slides: [
+                {
+                    slide: {
+                        randomId: 1234,
+                        background: {
+                            img: 'directory',
+                            colour: '#000'
+                        },
+                        elemets: [
+                            element: {
+                                position: {
+                                    x: 12,
+                                    y: 12
+                                },
+                                blockSize: {
+                                    widht: 12,
+                                    height: 12
+                                },
+                                elementId: 124,
+                                text: {
+                                    size: 12,
+                                    text: 'hello',
+                                    font: 'bold'
+                                }
+                            },
+                            element: {
+                                position: {
+                                    x: 14,
+                                    y: 100
+                                },
+                                blockSize: {
+                                    widht: 22,
+                                    height: 12
+                                },
+                                elementId: 34,
+                                primitive: {
+                                    type: {
+                                        type: 'circle',
+                                        colourback: '#111',
+                                        colourline: '#777'
+                                    }
+                                }
+                            },
+                        ]
+                    },
+                },
+                {
+                    slide: {
+                        randomId: 1,
+                        background: {
+                            img: 'directory',
+                            colour: '#222'
+                        },
+                        elemets: [
+                            element: {
+                                position: {
+                                    x: 12,
+                                    y: 12
+                                },
+                                blockSize: {
+                                    widht: 6,
+                                    height: 10
+                                },
+                                elementId: 2,
+                                text: {
+                                    size: 10,
+                                    text: 'done',
+                                    font: 'italic'
+                                }
+                            },
+                            element: {
+                                position: {
+                                    x: 14,
+                                    y: 100
+                                },
+                                blockSize: {
+                                    widht: 22,
+                                    height: 12
+                                },
+                                elementId: 34,
+                                text: {
+                                    size: 13,
+                                    text: 'all done',
+                                    font: 'italic'
+                                }
+                            },
+                            element: {
+                                position: {
+                                    x: 14,
+                                    y: 100
+                                },
+                                blockSize: {
+                                    widht: 22,
+                                    height: 12
+                                },
+                                elementId: 34,
+                                img: {
+                                    src: ' '
+                                }
+                            }
+                        ]
+                    },
+
+                },
+                {
+                    slide: {
+                        randomId: 1,
+                        background: {
+                            img: 'directory',
+                            colour: '#222'
+                        },
+                        elemets: [
+                            element: {
+                                position: {
+                                    x: 12,
+                                    y: 12
+                                },
+                                blockSize: {
+                                    widht: 6,
+                                    height: 10
+                                },
+                                elementId: 2,
+                                text: {
+                                    size: 10,
+                                    text: 'done',
+                                    font: 'italic'
+                                }
+                            },
+                            element: {
+                                position: {
+                                    x: 14,
+                                    y: 100
+                                },
+                                blockSize: {
+                                    widht: 22,
+                                    height: 12
+                                },
+                                elementId: 34,
+                                text: {
+                                    size: 13,
+                                    text: 'all done',
+                                    font: 'italic'
+                                }
+                            },
+                        ]
+                    },
+
+                },
+
+            ]
+        }
+    ],
+    redo: [
+        // список презентаций после изменений
+    ]
 }
 
 export type presentation = {
-        selectslides: 1234,
-        selectElements: 1234,
-        title: 'new title',
-        slides: [
-            {
-                slide: {
-                    randomId: 1234,
-                    background: {
-                        img: 'directory',
-                        colour: '#000'
-                    },
-                    block: {
+    selectslides: 1234,
+    selectElements: 1234,
+    title: 'new title',
+    slides: [
+        {
+            slide: {
+                randomId: 1234,
+                background: {
+                    img: 'directory',
+                    colour: '#000'
+                },
+                elemets: [
+                    element: {
                         position: {
                             x: 12,
                             y: 12
@@ -371,98 +845,184 @@ export type presentation = {
                             widht: 12,
                             height: 12
                         },
-                        elemets: {
-                            elementId: 1234,
-                            img: 'directory',
-                            text: {
-                                size: 12,
-                                text: 'hello',
-                                font: 'bold'
-                            },
-                            primitive: {
-                                type: {
-                                    type: 'circle',
-                                    colourback: '#111',
-                                    colourline: '#000'
-                                }
+                        elementId: 124,
+                        text: {
+                            size: 12,
+                            text: 'hello',
+                            font: 'bold'
+                        }
+                    },
+                    element: {
+                        position: {
+                            x: 14,
+                            y: 100
+                        },
+                        blockSize: {
+                            widht: 22,
+                            height: 12
+                        },
+                        elementId: 34,
+                        primitive: {
+                            type: {
+                                type: 'circle',
+                                colourback: '#111',
+                                colourline: '#777'
                             }
                         }
-                    }
-                },
-
-            },
-            {
-                slide: {
-                    randomId: 34,
-                    background: {
-                        img: 'directory',
-                        colour: '#000'
                     },
-                    block: {
+                ]
+            },
+        },
+        {
+            slide: {
+                randomId: 1,
+                background: {
+                    img: 'directory',
+                    colour: '#222'
+                },
+                elemets: [
+                    element: {
                         position: {
                             x: 12,
                             y: 12
                         },
                         blockSize: {
-                            widht: 12,
+                            widht: 6,
+                            height: 10
+                        },
+                        elementId: 2,
+                        text: {
+                            size: 10,
+                            text: 'done',
+                            font: 'italic'
+                        }
+                    },
+                    element: {
+                        position: {
+                            x: 14,
+                            y: 100
+                        },
+                        blockSize: {
+                            widht: 22,
                             height: 12
                         },
-                        elemets: {
-                            elementId: 14,
-                            img: 'directory',
-                            text: {
-                                size: 12,
-                                text: 'hello',
-                                font: 'bold'
-                            },
-                            primitive: {
-                                type: {
-                                    type: 'circle',
-                                    colourback: '#111',
-                                    colourline: '#000'
-                                }
-                            }
+                        elementId: 34,
+                        text: {
+                            size: 13,
+                            text: 'all done',
+                            font: 'italic'
+                        }
+                    },
+                    element: {
+                        position: {
+                            x: 14,
+                            y: 100
+                        },
+                        blockSize: {
+                            widht: 22,
+                            height: 12
+                        },
+                        elementId: 34,
+                        img: {
+                            src: ' '
                         }
                     }
-                },
-
+                ]
             },
 
-        ]
+        },
+        {
+            slide: {
+                randomId: 1,
+                background: {
+                    img: 'directory',
+                    colour: '#222'
+                },
+                elemets: [
+                    element: {
+                        position: {
+                            x: 12,
+                            y: 12
+                        },
+                        blockSize: {
+                            widht: 6,
+                            height: 10
+                        },
+                        elementId: 2,
+                        text: {
+                            size: 10,
+                            text: 'done',
+                            font: 'italic'
+                        }
+                    },
+                    element: {
+                        position: {
+                            x: 14,
+                            y: 100
+                        },
+                        blockSize: {
+                            widht: 22,
+                            height: 12
+                        },
+                        elementId: 34,
+                        text: {
+                            size: 13,
+                            text: 'all done',
+                            font: 'italic'
+                        }
+                    },
+                ]
+            },
+
+        },
+
+    ]
 }
 
-export type slide = {
+export type slides = {
+    slide: {
         randomId: 1234,
         background: {
             src: 'directory',
             colour: '#000'
         },
-        block: {
-            position: {
-                x: 12,
-                y: 12
-            },
-            blockSize: {
-                widht: 12,
-                height: 12
-            },
-            elemets: {
-                elementId: 1234,
-                img: 'directory',
+        elemets: [
+            element: {
+                position: {
+                    x: 12,
+                    y: 12
+                },
+                blockSize: {
+                    widht: 12,
+                    height: 12
+                },
+                elementId: 124,
                 text: {
                     size: 12,
                     text: 'hello',
                     font: 'bold'
+                }
+            },
+            element: {
+                position: {
+                    x: 14,
+                    y: 100
                 },
+                blockSize: {
+                    widht: 22,
+                    height: 12
+                },
+                elementId: 34,
                 primitive: {
                     type: {
                         type: 'circle',
                         colourback: '#111',
-                        colourline: '#000'
+                        colourline: '#777'
                     }
                 }
-            }
-        }
+            },
+        ]
+    },
 }
 
 export type background = {
@@ -470,36 +1030,9 @@ export type background = {
     colour: '#000'
 }
 
-export type block = {
-    position: {
-        x: 12,
-        y: 12
-    },
-    blockSize: {
-        widht: 12,
-        height: 12
-    },
-    elemets: {
-        elementId: 1234,
-        img: 'directory',
-        text: {
-            size: 12,
-            text: 'hello',
-            font: 'bold'
-        },
-        primitive: {
-            type: {
-                type: 'circle',
-                colourback: '#111',
-                colourline: '#000'
-            }
-        }
-    }
-}
-
-export type position = {  
-        x: 12,
-        y: 12  
+export type position = {
+    x: 12,
+    y: 12
 }
 
 export type blockSize = {
@@ -508,32 +1041,36 @@ export type blockSize = {
 }
 
 export type elements = {
-    elemets: {
-        elementId: 1234,
-        img: 'directory',
+    element: {
+        position: {
+            x: 12,
+            y: 12
+        },
+        blockSize: {
+            widht: 12,
+            height: 12
+        },
+        elementId: 124,
         text: {
             size: 12,
             text: 'hello',
             font: 'bold'
-        },
-        primitive: {
-            type: {
-                type: 'circle',
-                colourback: '#111',
-                colourline: '#000'
-            }
         }
-    }
+    },
 }
 
 export type text = {
-    size: 12,
-    text: 'hello',
-    font: 'bold'
+    size: 10,
+    text: 'done',
+    font: 'italic'
 }
 
 export type primitive = {
     type: 'circle',
     colourback: '#111',
-    colourline: '#000'
+    colourline: '#777'
+
+}
+export type img = {
+    src: 'directory'
 }
