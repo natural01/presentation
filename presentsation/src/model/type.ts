@@ -65,6 +65,10 @@ export type text = {
     font: string,
 }
 
+export type picture = {
+    src: string,
+}
+
 export type primitive = {
     type: primitiveType,
     colourback: string,
