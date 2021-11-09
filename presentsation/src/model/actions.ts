@@ -7,11 +7,12 @@ import {presentation} from './type'
 import {slides} from './type'
 import {slide} from './type'
 import {background} from './type'
-import {block} from './type'
 import {position} from './type'
 import {blockSize} from './type'
 import {elements} from './type'
+import { element } from './type'
 import {text} from './type'
+import {picture} from './type'
 import {primitive} from './type'
 import {primitiveType} from './type'
 
@@ -120,5 +121,135 @@ function delSlide(editor: editor, sliddeId: string): editor {
     return {
         mode: presentationMode,
         presentation: presentation,
+    }
+}
+
+export function addImg(editor: editor, src: string, elementId: string): editor {
+    const slideId: number = editor.selectedSlidesId.slice(-1)[0]
+    const slide: slide = editor.presentation.slides[slideId]
+    const picture: picture = {
+        src: ''
+    }
+    const element: element = {
+        elementId: makeId(),
+        blockSize: {
+            width: 10,
+            height: 10,
+        },
+        position: {
+            x: 1,
+            y: 1,
+        }
+    }
+
+    const newslide: slide = {
+        ...slide,
+        elements: [
+            ...slide.elements,
+            element,
+        ]
+    }
+
+    const newslides: slide[] = editor.presentation.slides.map((slide, id) => {
+        if (id === slideId) {
+            return newslide
+        }
+        return slide
+    })
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: newslides,
+        }
+    }
+}
+
+export function addPrimitive(editor: editor, primitiveType: string, elementId: string): editor {
+    const slideId: number = editor.selectedSlidesIndexes.slice(-1)[0]
+    const slide: slide = editor.presentation.slides[slideId]
+    const primitive: primitive = {
+        primitiveType,
+        colourback: '#111',
+        colourline: '#000'
+    }
+    const element: element = {
+        elementId: makeId(),
+        blockSize: {
+            width: 10,
+            height: 10,
+        },
+        position: {
+            x: 1,
+            y: 1,
+        }
+    }
+
+    const newslide: slide = {
+        ...slide,
+        elements: [
+            ...slide.elements,
+            element,
+        ]
+    }
+
+    const newslides: slide[] = editor.presentation.slides.map((slide, id) => {
+        if (id === slideId) {
+            return newslide
+        }
+        return slide
+    })
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: newslides,
+        }
+    }
+}
+
+export function addText(editor: editor, elementId: string, text: string): editor {
+    const slideIndex: number = editor.selectedSlidesIndexes.slice(-1)[0]
+    const slide: slide = editor.presentation.slidesList[slideIndex]
+    const Text: text = {
+        size: 12,
+        text: 'hello',
+        font: 'bold'
+    }
+    const element: element = {
+        elementId: makeId(),
+        blockSize: {
+            width: 10,
+            height: 10,
+        },
+        position: {
+            x: 1,
+            y: 1,
+        }
+    }
+
+    const newSlide: slide = {
+        ...slide,
+        elementsList: [
+            ...slide.elementsList,
+            element,
+        ]
+    }
+
+    const newslides: slide[] = editor.presentation.slides.map((slide, index) => {
+        if (index === slideIndex) {
+            return newSlide
+        }
+        return slide
+    })
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slidesList: newslides,
+        }
     }
 }
