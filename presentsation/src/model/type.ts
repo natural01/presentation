@@ -1,78 +1,69 @@
-export type editor = {
-    mode: presentationMode,
-    presentation: presentation,
-    commandsHistory: history,
+export type App = {
+    mode: Mode,
+    presentation: Presentation,
+    commandsHistory: CommandsHistory,
 }
 
-export type presentationMode = "editor" | "view"
+export type Mode = 'editor' | 'view'
 
-export type history = {
-    undo: undo[],
-    redo: redo[],
-}
-
-export type undo = presentation
-export type redo = presentation
-
-export type presentation = {
-    selectSlides: number,
-    selectElements: number,
+export type Presentation = Readonly<{
+    selectSlides: string[],
+    selectElements: string[],
     title: string,
-    slides: slides[],
-}
+    slides: Slide[],
+}>
 
-export type slides = {
-    slide: slide,
-}
+export type Slide = Readonly<{
+    slideId: string,
+    background: Background,
+    blocks: Block[],
+}>
 
-export type slide = {
-    slideId: number
-    background: background,
-    block: block,
-}
-
-export type background = {
+export type Background = Readonly<{
     src: string,
     color: string,
-}
+}>
 
-export type block = {
-    position: position,
-    blockSize: blockSize,
-    elements: elements,
-}
+export type Block = Readonly<{
+    position: Position,
+    blockSize: BlockSize,
+    element: Element,
+}>
 
-export type position = {
+export type Position = Readonly<{
     x: number,
     y: number,
-}
+}>
 
-export type blockSize = {
+export type BlockSize = Readonly<{
     width: number,
     height: number,
-}
+}>
 
-export type elements = {
-    elementId: number,
-    img: string,
-    text: text,
-    primitive: primitive,
-}
+export type Element = Readonly<{
+    elementId: string,
+    src: string,
+    text: Text,
+    primitive: Primitive,
+}>
 
-export type text = {
+export type Text = Readonly<{
     size: number,
-    text: string,
-    font: string,
-}
+    content: string,
+    fontFamily: string,
+    colorText: string,
+    bold: boolean,
+    italic: boolean,
+    underline: boolean,
+}>
 
-export type primitive = {
-    type: primitiveType,
-    colourback: string,
-    colourline: string,
-}
+export type Primitive = Readonly<{
+    primitiveType: 'circle' | 'triangle' | 'rectangle',
+    colourBack: string,
+    colourLine: string,
+}>
 
-export enum primitiveType {
-    Circle,
-    Triangle,
-    Rectangle,
-}
+export type CommandsHistory = Readonly<{
+    undo: Presentation[],
+    redo: Presentation[],
+}>
