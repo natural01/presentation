@@ -9,7 +9,6 @@ import {BlockSize} from './type'
 import {Text} from './type'
 import {Primitive} from './type'
 import {resolveSrv} from "dns";
-import {presentation} from "./testData";
 
 function makeId(): string {
     let result           = '';
@@ -23,7 +22,11 @@ function makeId(): string {
 }
 
 function addTitle(title: string, app: App): void {
-    app.presentation.title = title;
+    app.presentation = {
+        ...app.presentation,
+        title: title,
+    }
+
 }
 
 function addPresentation(app: App, title: string): void {
@@ -67,28 +70,27 @@ function addSlide(app: App): void {
 
 function selectSlide(app: App, slideId: string): void {
     addUndo(app, app.presentation)
-    const selectSlides: presentation = {
+    app.presentation = {
+        ...app.presentation,
         selectSlides: [
-            ...app.presentation.selectSlides,
+            ...app.presentation.selectSlides.slice(0),
             slideId
-        ],
-        slides: app.presentation.slides,
+        ]
     }
-    app.presentation.selectSlides = [
-        ...app.presentation.selectSlides,
-        slideId
-    ]
 }
 
-function selectElements(app: app, elementId: string): void {
+function selectElements(app: App, elementId: string): void {
     addUndo(app, app.presentation)
-    app.presentation.selectElements = [
-        ...app.presentation.selectElements,
-        elementId
-    ]
+    app.presentation = {
+        ...app.presentation,
+        selectElements: [
+            ...app.presentation.selectElements.slice(0),
+            elementId
+        ]
+    }
 }
 
-function delSlide(app: app): void {
+function delSlide(app: App): void {
     addUndo(app, app.presentation)
     // app.presentation.selectSlides
     let index1 = 0
@@ -96,47 +98,56 @@ function delSlide(app: app): void {
     let id = ''
     for (index1; index1 != app.presentation.selectSlides.length; index1++) {
         id = app.presentation.selectSlides[index1]
+        let count = 1
         for (index2; index2 != app.presentation.slides.length; index2) {
-            let count = 1
             // eslint-disable-next-line eqeqeq
             if (id == app.presentation.slides[index2].slideId) {
-                app.presentation.slides = [
-                    ...app.presentation.slides.slice(0, count),
-                    ...app.presentation.slides.slice(count + 1)
-                ]
+                app.presentation = {
+                    ...app.presentation,
+                    slides: [
+                        ...app.presentation.slides.slice(0, count),
+                        ...app.presentation.slides.slice(count + 1)
+                    ]
+                }
             }
             count += 1
         }
     }
 }
 
-function moveSlide(app: app, slidePosition: number): void {
+function moveSlide(app: App, slidePosition: number): void {
     addUndo(app, app.presentation)
     let id = ''
-    let moveSlide = {} as slide
+    let moveSlide: Slide
     if (app.presentation.selectSlides.length == 1) {
         id = app.presentation.selectSlides[0]
         let index = 0
         for (index; index != app.presentation.slides.length; index++) {
             if (id == app.presentation.slides[index].slideId) {
                 moveSlide = app.presentation.slides[index]
-                app.presentation.slides = [
-                    ...app.presentation.slides.slice(0, index),
-                    ...app.presentation.slides.slice(index + 1)
-                ]
+                app.presentation = {
+                    ...app.presentation,
+                    slides: [
+                        ...app.presentation.slides.slice(0, index),
+                        ...app.presentation.slides.slice(index + 1)
+                    ]
+                }
+                app.presentation = {
+                    ...app.presentation,
+                    slides: [
+                        ...app.presentation.slides.slice(0, slidePosition),
+                        moveSlide,
+                        ...app.presentation.slides.slice(slidePosition + 2)
+                    ]
+                }
             }
             break
             index =+ 1
         }
-        app.presentation.slides = [
-            ...app.presentation.slides.slice(0, slidePosition),
-            moveSlide,
-            ...app.presentation.slides.slice(slidePosition + 2)
-        ]
     }
 }
 
-function changeBackgroundColorSlide(app: app, color: string): void {
+function changeBackgroundColorSlide(app: App, color: string): void {
     addUndo(app, app.presentation)
     let countSelectSlide = 0
     for (countSelectSlide; countSelectSlide != app.presentation.selectSlides.length; countSelectSlide++) {
@@ -144,13 +155,28 @@ function changeBackgroundColorSlide(app: app, color: string): void {
         let index = 0
         for (index; index != app.presentation.slides.length; index++) {
             if (idSelectSlide == app.presentation.slides[index].slideId) {
-                app.presentation.slides[index].background.color = color
+                const slide: Slide = {
+                    slideId: idSelectSlide,
+                    background: {
+                        color: color,
+                        src: ''
+                    },
+                    blocks: app.presentation.slides[index].blocks
+                }
+                app.presentation = {
+                    ...app.presentation,
+                    slides: [
+                        ...app.presentation.slides.slice(0, index),
+                        slide,
+                        ...app.presentation.slides.slice(index + 1)
+                    ]
+                }
             }
         }
     }
 }
 
-function changeBackgroundImgSlide(app: app, img: string): void {
+function changeBackgroundImgSlide(app: App, img: string): void {
     addUndo(app, app.presentation)
     let countSelectSlide = 0
     for (countSelectSlide; countSelectSlide != app.presentation.selectSlides.length; countSelectSlide++) {
@@ -158,16 +184,31 @@ function changeBackgroundImgSlide(app: app, img: string): void {
         let index = 0
         for (index; index != app.presentation.slides.length; index++) {
             if (idSelectSlide == app.presentation.slides[index].slideId) {
-                app.presentation.slides[index].background.src = img
+                const slide: Slide = {
+                    slideId: idSelectSlide,
+                    background: {
+                        color: '',
+                        src: img
+                    },
+                    blocks: app.presentation.slides[index].blocks
+                }
+                app.presentation = {
+                    ...app.presentation,
+                    slides: [
+                        ...app.presentation.slides.slice(0, index),
+                        slide,
+                        ...app.presentation.slides.slice(index + 1)
+                    ]
+                }
             }
         }
     }
 }
 
-function addPrimitive(app: app, primitiveType: string): void {
+function addPrimitive(app: App, primitiveType: string): void {
     addUndo(app, app.presentation)
     if (primitiveType == 'circle') {
-        const defaultBlock: block = {
+        const defaultBlock: Block = {
             position: {
                 x: 100,
                 y: 100
@@ -200,15 +241,27 @@ function addPrimitive(app: app, primitiveType: string): void {
             let index = 0
             for (index; index != app.presentation.slides.length; index++) {
                 if (idSelectSlide == app.presentation.slides[index].slideId) {
-                    app.presentation.slides[index].blocks = [
-                        ...app.presentation.slides[index].blocks,
-                        defaultBlock
-                    ]
+                    const slide: Slide = {
+                        slideId: idSelectSlide,
+                        background: app.presentation.slides[index].background,
+                        blocks: [
+                            ...app.presentation.slides[index].blocks.slice(0),
+                            defaultBlock
+                        ]
+                    }
+                    app.presentation = {
+                        ...app.presentation,
+                        slides: [
+                            ...app.presentation.slides.slice(0, index),
+                            slide,
+                            ...app.presentation.slides.slice(index + 1)
+                        ]
+                    }
                 }
             }
         }
     } else if (primitiveType == 'triangle') {
-        const defaultBlock: block = {
+        const defaultBlock: Block = {
             position: {
                 x: 100,
                 y: 100
@@ -241,15 +294,27 @@ function addPrimitive(app: app, primitiveType: string): void {
             let index = 0
             for (index; index != app.presentation.slides.length; index++) {
                 if (idSelectSlide == app.presentation.slides[index].slideId) {
-                    app.presentation.slides[index].blocks = [
-                        ...app.presentation.slides[index].blocks,
-                        defaultBlock
-                    ]
+                    const slide: Slide = {
+                        slideId: idSelectSlide,
+                        background: app.presentation.slides[index].background,
+                        blocks: [
+                            ...app.presentation.slides[index].blocks.slice(0),
+                            defaultBlock
+                        ]
+                    }
+                    app.presentation = {
+                        ...app.presentation,
+                        slides: [
+                            ...app.presentation.slides.slice(0, index),
+                            slide,
+                            ...app.presentation.slides.slice(index + 1)
+                        ]
+                    }
                 }
             }
         }
     } else if (primitiveType == 'rectangle') {
-        const defaultBlock: block = {
+        const defaultBlock: Block = {
             position: {
                 x: 100,
                 y: 100
@@ -282,17 +347,29 @@ function addPrimitive(app: app, primitiveType: string): void {
             let index = 0
             for (index; index != app.presentation.slides.length; index++) {
                 if (idSelectSlide == app.presentation.slides[index].slideId) {
-                    app.presentation.slides[index].blocks = [
-                        ...app.presentation.slides[index].blocks,
-                        defaultBlock
-                    ]
+                    const slide: Slide = {
+                        slideId: idSelectSlide,
+                        background: app.presentation.slides[index].background,
+                        blocks: [
+                            ...app.presentation.slides[index].blocks.slice(0),
+                            defaultBlock
+                        ]
+                    }
+                    app.presentation = {
+                        ...app.presentation,
+                        slides: [
+                            ...app.presentation.slides.slice(0, index),
+                            slide,
+                            ...app.presentation.slides.slice(index + 1)
+                        ]
+                    }
                 }
             }
         }
     }
 }
 
-function editPrimitiveColorline(app: app, colorLine: string, elementId: string): void {
+function editPrimitiveColorline(app: App, colorLine: string, elementId: string): void {
     addUndo(app, app.presentation)
     if (app.presentation.selectSlides.length == 1) {
         let idSelectSlide = app.presentation.selectSlides[0]
@@ -308,16 +385,40 @@ function editPrimitiveColorline(app: app, colorLine: string, elementId: string):
                 break
             }
         }
-        const defaultPrimitive: primitive = {
+        const defaultPrimitive: Primitive = {
             primitiveType: app.presentation.slides[indexSelectSlide].blocks[indexBlocks].element.primitive.primitiveType,
             colourBack: app.presentation.slides[indexSelectSlide].blocks[indexBlocks].element.primitive.colourBack,
             colourLine: colorLine
         }
-        app.presentation.slides[indexSelectSlide].blocks[indexBlocks].element.primitive = defaultPrimitive
+        const element: Element = {
+            ...app.presentation.slides[indexSelectSlide].blocks[indexBlocks].element,
+            primitive: defaultPrimitive
+        }
+        const block: Block = {
+            ...app.presentation.slides[indexSelectSlide].blocks[indexBlocks],
+            element: element
+        }
+        const slide: Slide = {
+            ...app.presentation.slides[indexSelectSlide],
+            blocks: [
+                ...app.presentation.slides[indexSelectSlide].blocks.slice(0, indexBlocks),
+                block,
+                ...app.presentation.slides[indexSelectSlide].blocks.slice(indexBlocks + 1)
+            ]
+        }
+        app.presentation = {
+            ...app.presentation,
+            slides: [
+                ...app.presentation.slides.slice(0, indexSelectSlide),
+                slide,
+                ...app.presentation.slides.slice(indexSelectSlide + 1)
+            ]
+
+        }
     }
 }
 
-function editPrimitiveColorback(app: app, colorBack: string, elementId: string): void {
+function editPrimitiveColorback(app: App, colorBack: string, elementId: string): void {
     addUndo(app, app.presentation)
     if (app.presentation.selectSlides.length == 1) {
         let idSelectSlide = app.presentation.selectSlides[0]
@@ -333,16 +434,39 @@ function editPrimitiveColorback(app: app, colorBack: string, elementId: string):
                 break
             }
         }
-        const defaultPrimitive: primitive = {
+        const defaultPrimitive: Primitive = {
             primitiveType: app.presentation.slides[indexSelectSlide].blocks[indexBlocks].element.primitive.primitiveType,
             colourBack: colorBack,
             colourLine: app.presentation.slides[indexSelectSlide].blocks[indexBlocks].element.primitive.colourLine
         }
-        app.presentation.slides[indexSelectSlide].blocks[indexBlocks].element.primitive = defaultPrimitive
+        const element: Element = {
+            ...app.presentation.slides[indexSelectSlide].blocks[indexBlocks].element,
+            primitive: defaultPrimitive
+        }
+        const block: Block = {
+            ...app.presentation.slides[indexSelectSlide].blocks[indexBlocks],
+            element: element
+        }
+        const slide: Slide = {
+            ...app.presentation.slides[indexSelectSlide],
+            blocks: [
+                ...app.presentation.slides[indexSelectSlide].blocks.slice(0, indexBlocks),
+                block,
+                ...app.presentation.slides[indexSelectSlide].blocks.slice(indexBlocks + 1)
+            ]
+        }
+        app.presentation = {
+            ...app.presentation,
+            slides: [
+                ...app.presentation.slides.slice(0, indexSelectSlide),
+                slide,
+                ...app.presentation.slides.slice(indexSelectSlide + 1)
+            ]
+        }
     }
 }
 
-function delElements(app: app): void {
+function delElements(app: App): void {
     addUndo(app, app.presentation)
     if (app.presentation.selectSlides.length == 1) {
         let idSelectSlide = app.presentation.selectSlides[0]
@@ -359,17 +483,29 @@ function delElements(app: app): void {
             idSelectElement = app.presentation.selectElements[indexSelectElement]
             for (indexBlocks; indexBlocks != app.presentation.slides[indexSelectSlide].blocks.length; indexBlocks++) {
                 if (idSelectElement == app.presentation.slides[indexSelectSlide].blocks[indexBlocks].element.elementId) {
-                    app.presentation.slides[indexSelectSlide].blocks = [
+                    const blocks = [
                         ...app.presentation.slides[indexSelectSlide].blocks.slice(0, indexBlocks),
                         ...app.presentation.slides[indexSelectSlide].blocks.slice(indexBlocks + 1)
                     ]
+                    const slide: Slide = {
+                        ...app.presentation.slides[indexSelectSlide],
+                        blocks: blocks
+                    }
+                    const presentation: Presentation = {
+                        ...app.presentation,
+                        slides : [
+                            ...app.presentation.slides.slice(0, indexSelectSlide),
+                            slide,
+                            ...app.presentation.slides.slice(indexSelectSlide + 1)
+                        ]
+                    }
                 }
             }
         }
     }
 }
 
-function changeBlock(app: App, blockId: string, x: number, y: number, wight: number, height: number) {
+function changeBlock(app: App, elementId: string, x: number, y: number, wight: number, height: number) {
     addUndo(app, app.presentation)
     if (app.presentation.selectSlides.length == 1) {
         let idSelectSlide = app.presentation.selectSlides[0]
@@ -381,29 +517,37 @@ function changeBlock(app: App, blockId: string, x: number, y: number, wight: num
         }
         let indexBlock = 0
         for (indexBlock; indexBlock != app.presentation.slides[indexSelectSlide].blocks.length; indexBlock++) {
-            if (blockId == app.presentation.slides[indexSelectSlide].blocks[indexBlock].element.elementId) {
+            if (elementId == app.presentation.slides[indexSelectSlide].blocks[indexBlock].element.elementId) {
                 break
             }
         }
-        app.presentation = {
-            selectSlides: app.presentation.selectSlides,
-            selectElements: app.presentation.selectElements,
-            title: app.presentation.title,
-            slides: [
-                ...app.presentation.slides.slice(0, indexSelectSlide),
-
-            ]
-        }
-        app.presentation.slides[indexSelectSlide].blocks[indexBlock] = {
+        const block: Block = {
             element: app.presentation.slides[indexSelectSlide].blocks[indexBlock].element,
             blockSize: {
                 width: wight,
-                height: height,
+                height: height
             },
             position: {
                 x: x,
-                y: y,
+                y: y
             }
+        }
+        const blocks = [
+            ...app.presentation.slides[indexSelectSlide].blocks.slice(0, indexBlock),
+            block,
+            ...app.presentation.slides[indexSelectSlide].blocks.slice(indexBlock + 1)
+        ]
+        const slide: Slide = {
+            ...app.presentation.slides[indexSelectSlide],
+            blocks: blocks
+        }
+        app.presentation = {
+            ...app.presentation,
+            slides: [
+                ...app.presentation.slides.slice(0, indexSelectSlide),
+                slide,
+                ...app.presentation.slides.slice(indexSelectSlide + 1)
+            ]
         }
     }
 }
