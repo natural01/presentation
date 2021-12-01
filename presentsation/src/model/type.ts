@@ -1,4 +1,4 @@
-export type App = {
+export type AppType = {
     mode: Mode,
     presentation: Presentation,
     commandsHistory: CommandsHistory,
@@ -58,7 +58,7 @@ export type Text = Readonly<{
 }>
 
 export type Primitive = Readonly<{
-    primitiveType: 'circle' | 'triangle' | 'rectangle',
+    primitiveType: string,
     colourBack: string,
     colourLine: string,
 }>
