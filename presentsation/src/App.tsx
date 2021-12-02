@@ -1,84 +1,51 @@
-import React, {useEffect, useLayoutEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { addPresentation, addSlide } from './model/actions';
+import { AppType, Mode, Presentation, Background, Block, BlockSize, CommandsHistory} from './model/type';
+import { Element, Position, Slide, Text, Primitive} from './model/type';
 
 function App() {
-    return (
-      <div className={'slide'}>
+    let [counter, setCounter] = useState(1)
 
-      </div>
-    );
-   //  let [counter, setCounter] = useState(1)
-   //
-   //  useEffect(() => {
-   //      const button = document.getElementById('id123')
-   //      const listener = () => {
-   //          console.log(`counter=${counter}`)
-   //          setCounter(counter + 1)
-   //      }
-   //      if (button)
-   //      {
-   //          button.addEventListener('click', listener)
-   //      }
-   //
-   //      return () => {
-   //          button?.removeEventListener('click', listener)
-   //      }
-   // }, [counter])
+    useEffect(() => {
+        const button = document.getElementById('id123')
+        const listener = () => {
+            console.log(`counter=${counter}`)
+            setCounter(counter + 1)
+        }
+        if (button)
+        {
+            button.addEventListener('click', listener)
+        }
 
-  // return (
-  //   <div className="App">
-  //       <button id="id123">Нажми меня</button>
-  //     <WriteText counter={counter}/>
-  //     <OriginalReactApp />
-  //     <HelloWorld data={"lol"} secretKey={"kek"} num={3}/>
-  //   </div>
-  // );
-}
+        return () => {
+            button?.removeEventListener('click', listener)
+        }
+   }, [counter])
 
-type Params = {
-  data: string,
-  secretKey: string,
-  counter?: number,
-  num: number,
-}
+    function decCounter() {
+        setCounter(counter - 1)
+    }
 
-function HelloWorld(params: Params) {
+
   return (
-      <div className="App">
-        {params.data}, {params.secretKey}, counter=[{params.num}]
+    <div className="App">
+      <div className="topmenu">
+        <button className="button" id="AddSlide">Добавить презентацию</button>
+        <button className="button" id="AddSlide">Добавить презентацию</button>
+        <div className="dropdown">
+          <button className="button" id="AddSlide">Слайд</button>
+          <div className="dropdown-child">
+            <button className="button">текст</button>
+            <button className="button">картинка</button>
+            <button className="button">фигура</button>
+          </div>
+        </div>
       </div>
+      <div className="slide"></div>
+    </div>
   );
-}
-
-function OriginalReactApp() {
-  return (
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-  );
-}
-
-type per = {
-  counter: number,
-}
-function WriteText(text: per) {
-  return (
-      <div className="My-Text">
-        {text.counter}
-      </div>
-  )
 }
 
 export default App;

@@ -1,46 +1,42 @@
-/*.App {*/
-/*  text-align: center;*/
-/*}*/
+.topmenu {
+  padding-top: 10px;
+  width: 400px;
+  display: flex;
+  justify-content: space-evenly;
+}
 
-/*.App-logo {*/
-/*  height: 40vmin;*/
-/*  pointer-events: none;*/
-/*}*/
+.button {
+  font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+  width: 100px;
+  height: 40px;
+  border-radius: 5%;
+  border: solid transparent;
+  background-color: white;
+  display: inline-block
+}
+.button:hover {
+  cursor: pointer;
+  background-color: #dadce0;
+}
 
-/*@media (prefers-reduced-motion: no-preference) {*/
-/*  .App-logo {*/
-/*    animation: App-logo-spin infinite 20s linear;*/
-/*  }*/
-/*}*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+  height: 40px;
+}
 
-/*.App-header {*/
-/*  background-color: #282c34;*/
-/*  min-height: 100vh;*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  align-items: center;*/
-/*  justify-content: center;*/
-/*  font-size: calc(10px + 2vmin);*/
-/*  color: white;*/
-/*}*/
+.dropdown-child {
+  display: none;
+}
 
-/*.App-link {*/
-/*  color: #61dafb;*/
-/*}*/
+.dropdown-child button {
+  display: block;
+  border-color: #dadce0;
+}
 
-/*@keyframes App-logo-spin {*/
-/*  from {*/
-/*    transform: rotate(0deg);*/
-/*  }*/
-/*  to {*/
-/*    transform: rotate(360deg);*/
-/*  }*/
-/*}*/
-
-/*.My-Text {*/
-/*  font-size: 50px;*/
-/*  color: green;*/
-/*}*/
+.dropdown:hover .dropdown-child {
+  display: block;
+}
 
 .slide {
   width: 1000px;
