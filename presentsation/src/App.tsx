@@ -1,34 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { addPresentation, addSlide } from './model/actions';
 import { AppType, Mode, Presentation, Background, Block, BlockSize, CommandsHistory} from './model/type';
 import { Element, Position, Slide, Text, Primitive} from './model/type';
 
 function App() {
-    let [counter, setCounter] = useState(1)
-
-    useEffect(() => {
-        const button = document.getElementById('id123')
-        const listener = () => {
-            console.log(`counter=${counter}`)
-            setCounter(counter + 1)
-        }
-        if (button)
-        {
-            button.addEventListener('click', listener)
-        }
-
-        return () => {
-            button?.removeEventListener('click', listener)
-        }
-   }, [counter])
-
-    function decCounter() {
-        setCounter(counter - 1)
-    }
-
-
   return (
     <div className="App">
       <div className="topmenu">
@@ -43,7 +18,12 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="slide"></div>
+      <div className="line"></div>
+      <div className="slides">
+        <div className="slideList">
+        </div>
+        <div className="slide"></div>
+      </div>
     </div>
   );
 }
