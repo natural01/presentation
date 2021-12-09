@@ -1,6 +1,5 @@
 .topmenu {
   padding-top: 10px;
-  width: 400px;
   display: flex;
   justify-content: space-evenly;
 }
@@ -38,9 +37,29 @@
   display: block;
 }
 
-.line {
+.title {
+  font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+  width: 100px;
+  height: 40px;
+  padding: 0 30%;
+  border-radius: 5%;
+  border: solid transparent;
+  background-color: white;
+  display: inline-block
+}
+
+.titleStr {
+  font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+}
+
+.lineHorizon {
   margin: 10px 0;
   border-bottom: 1px solid #dadce0;
+}
+
+.lineVertical {
+  margin: 0 10ps;
+  border-left: 1px solid #dadce0;
 }
 
 .slides {
@@ -48,8 +67,31 @@
   justify-content: space-evenly;
 }
 
-.slideList {
-  display: contents;
+.slidesList {
+  height: 600px;
+  width: 120px;
+  margin: 14px auto;
+  overflow: auto;
+}
+
+.slidesList::-webkit-scrollbar {
+  width: 10px;
+  border: 3px solid #dadce0;
+  border-radius: 5px;
+}
+
+.slidesList::-webkit-scrollbar-thumb {
+  background-color: #dadce0;
+  border-radius: 20px;
+  border: 1px solid white;
+}
+
+.slidesList-element {
+  width: 90px;
+  height: 50px;
+  margin: 14px 0;
+  border: 2px solid black;
+  border-radius: 10px;
 }
 
 .elementList {
@@ -64,4 +106,5 @@
   height: 500px;
   margin: 80px auto;
   border: 2px solid black;
+  border-radius: 10px;
 }

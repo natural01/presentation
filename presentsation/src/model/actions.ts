@@ -22,16 +22,23 @@ export function makeId(): string {
     return result;
 }
 
-export function addTitle(title: string, app: AppType): Presentation {
-    app.presentation = {
-        ...app.presentation,
-        title: title,
+export function addTitle(app: AppType, title: string): AppType {
+    // app.presentation = {
+    //     ...app.presentation,
+    //     title: title,
+    // }
+    // const newPresentation = app.presentation
+    // return newPresentation
+    return {
+        ...app,
+        presentation: {
+            ...app.presentation,
+            title,
+        }
     }
-    const newPresentation = app.presentation
-    return newPresentation
 }
 
-export function addPresentation(app: AppType, title: string): Presentation {
+export function addPresentation(app: AppType, title: string): AppType {
     const slide: Slide = {
         slideId: makeId(),
         background: {
@@ -41,17 +48,18 @@ export function addPresentation(app: AppType, title: string): Presentation {
         blocks: []
     }
 
-    app.presentation = {
-        selectElements: [],
-        selectSlides: [],
-        title: title,
-        slides: [slide]
+    return {
+        ...app,
+        presentation: {
+            selectElements: [],
+            selectSlides: [],
+            title: title,
+            slides: [slide]
+        }
     }
-    const newPresentation = app.presentation
-    return newPresentation
 }
 
-export function addSlide(app: AppType): Presentation {
+export function addSlide(app: AppType): AppType {
     const slide: Slide = {
         slideId: makeId(),
         background: {
@@ -60,17 +68,16 @@ export function addSlide(app: AppType): Presentation {
         },
         blocks: []
     }
-    app.presentation = {
-        ...app.presentation,
-        selectSlides: [],
-        selectElements: [],
-        slides: [
-            ...app.presentation.slides.slice(0),
-            slide
-        ]
+    return {
+        ...app,
+        presentation: {
+            ...app.presentation,
+            slides: [
+                ...app.presentation.slides.slice(0),
+                slide
+            ]
+        }
     }
-    const newPresentation = app.presentation
-    return newPresentation
 }
 
 export function selectSlide(app: AppType, slideId: string): Presentation {
@@ -472,18 +479,6 @@ export function changeBlock(app: AppType, elementId: string, x: number, y: numbe
 
 export function changeMode (app: AppType, mode: Mode): Mode {
     return app.mode = mode
-}
-
-export function selectElement (app: AppType, elementId: string): Presentation {
-    app.presentation = {
-        ...app.presentation,
-        selectElements: [
-            ...app.presentation.selectElements,
-            elementId
-        ],
-    }
-    const newPresentation = app.presentation
-    return newPresentation
 }
 
 export function addUndo (app: AppType, presentation: Presentation): CommandsHistory {
