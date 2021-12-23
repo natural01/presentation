@@ -28,6 +28,10 @@
   display: none;
 }
 
+.dropdown-childPrimiive {
+  display: block;
+}
+
 .dropdown-child button {
   display: block;
   border-color: #dadce0;
@@ -39,13 +43,20 @@
 
 .title {
   font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
-  width: 100px;
+  width: 200px;
   height: 40px;
-  padding: 0 30%;
+  padding: 0 27%;
   border-radius: 5%;
   border: solid transparent;
   background-color: white;
-  display: inline-block
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.changeTitle {
+  display: flex;
+  justify-content: center;
 }
 
 .titleStr {
@@ -86,16 +97,16 @@
 }
 
 .slideList-dedicatedSlide{
-  width: 128px;
-  height: 71px;
+  width: 148px;
+  height: 88px;
   margin: 14px 0;
   border: 2px solid rgb(237 169 18);
   border-radius: 10px;
 }
 
 .slidesList-element {
-  width: 128px;
-  height: 71px;
+  width: 148px;
+  height: 88px;
   margin: 14px 0;
   border: 2px solid black;
   border-radius: 10px;
@@ -116,4 +127,41 @@
   border-radius: 10px;
 }
 
-/* .element-Text {} */
+.selectElem {
+  border: 2px solid rgb(237 169 18);
+  position: relative;
+}
+
+.circle {
+  border: solid 0.3em;
+  border-color: black;
+  background-color: #dadce0;
+}
+.selectElem-rectangle {
+  border: 2px solid rgb(237 169 18);
+  -moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+  position: relative;
+}
+.rectangle {
+	border: solid 0.3em;
+  border-color: black;
+  background-color: #dadce0;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+.selectCircle {
+  border: solid;
+  border-color: black;
+  background-color: #dadce0;
+}
+.selectRectangle{
+  border: solid;
+  border-color: black;
+  background-color: #dadce0;
+  -moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}

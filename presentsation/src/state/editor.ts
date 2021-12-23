@@ -5,47 +5,10 @@ import {editPrimitiveColorline, makeId, moveSlide, selectElements, selectSlide} 
 let app: AppType = {
     mode: 'editor',
     presentation: {
-        selectSlides: ['1234'],
+        selectSlides: [],
         selectElements: [],
         title: '',
         slides: [
-            //{
-                // slideId: '1234',
-                // background: {
-                //     src: '',
-                //     color: '#000'
-                // },
-                // blocks: [
-                //     {
-                //         position: {
-                //             x: 12,
-                //             y: 12
-                //         },
-                //         blockSize: {
-                //             width: 12,
-                //             height: 12
-                //         },
-                //         element: {
-                //             elementId: '1234',
-                //             src: '',
-                //             text: {
-                //                 size: 12,
-                //                 content: 'hello',
-                //                 fontFamily: 'calibry',
-                //                 colorText: '#000',
-                //                 bold: false,
-                //                 italic: false,
-                //                 underline: false
-                //             },
-                //             primitive: {
-                //                 primitiveType: '',
-                //                 colourBack: '',
-                //                 colourLine: '',
-                //             }
-                //         }
-                //     }
-               //  ]
-            // }
         ]
     },
     commandsHistory: {

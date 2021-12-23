@@ -23,12 +23,6 @@ export function makeId(): string {
 }
 
 export function addTitle(app: AppType, title: string): AppType {
-    // app.presentation = {
-    //     ...app.presentation,
-    //     title: title,
-    // }
-    // const newPresentation = app.presentation
-    // return newPresentation
     return {
         ...app,
         presentation: {
@@ -52,7 +46,9 @@ export function addPresentation(app: AppType, title: string): AppType {
         ...app,
         presentation: {
             selectElements: [],
-            selectSlides: [],
+            selectSlides: [
+                slide.slideId
+            ],
             title: title,
             slides: [slide]
         }
@@ -72,6 +68,9 @@ export function addSlide(app: AppType): AppType {
         ...app,
         presentation: {
             ...app.presentation,
+            selectSlides: [
+                slide.slideId
+            ],
             slides: [
                 ...app.presentation.slides.slice(0),
                 slide
@@ -80,54 +79,85 @@ export function addSlide(app: AppType): AppType {
     }
 }
 
-export function selectSlide(app: AppType, slideId: string): Presentation {
+export function selectSlide(app: AppType, slideId: string): AppType {
     addUndo(app, app.presentation)
-    app.presentation = {
-        ...app.presentation,
-        selectSlides: [
-            ...app.presentation.selectSlides.slice(0),
-            slideId
-        ]
+    return {
+        ...app,
+        presentation: {
+            ...app.presentation,
+            selectSlides: [
+                slideId
+            ]
+        }
     }
-    const newPresentation = app.presentation
-    return newPresentation
 }
 
-export function selectElements(app: AppType, elementId: string): Presentation {
+export function ResetSelectElem(app: AppType): AppType {
+    return {
+        ...app,
+        presentation: {
+            ...app.presentation,
+            selectElements: []
+        }
+    }
+}
+
+export function selectElements(app: AppType, elementId: string): AppType {
     addUndo(app, app.presentation)
     app.presentation = {
         ...app.presentation,
         selectElements: [
-            ...app.presentation.selectElements.slice(0),
             elementId
         ]
     }
-    const newPresentation = app.presentation
-    return newPresentation
+    return {
+        ...app
+    }
 }
 
-export function delSlide(app: AppType): Presentation {
+export function delSlide(app: AppType): AppType {
     addUndo(app, app.presentation)
-    // app.presentation.selectSlides
-    for (const slide of app.presentation.selectSlides) {
-        let id = slide
-        let count = 1
-        for (let index2 = 0; index2 != app.presentation.slides.length; index2) {
-            // eslint-disable-next-line eqeqeq
-            if (id == app.presentation.slides[index2].slideId) {
-                app.presentation = {
+    let newPresentation = {
+        ...app.presentation
+    }
+    let count = 1
+    for (let index1 = 0; index1 != app.presentation.selectSlides.length; index1++) {
+        let id = app.presentation.selectSlides[index1]
+        for (let index2 = 0; index2 != app.presentation.slides.length; index2++) {
+            if (id == app.presentation.slides[index2].slideId && index2 < app.presentation.slides.length-1) {
+                newPresentation = {
                     ...app.presentation,
                     slides: [
-                        ...app.presentation.slides.slice(0, count),
-                        ...app.presentation.slides.slice(count + 1)
+                        ...app.presentation.slides.slice(0, count-1),
+                        ...app.presentation.slides.slice(count)
+                    ],
+                    selectSlides: [
+                        app.presentation.slides[index2+1].slideId
                     ]
                 }
+                count = 0
+                break
+            } else if (id == app.presentation.slides[index2].slideId && index2 == app.presentation.slides.length-1) {
+                newPresentation = {
+                    ...app.presentation,
+                    slides: [
+                        ...app.presentation.slides.slice(0, count-1),
+                        ...app.presentation.slides.slice(count)
+                    ],
+                    selectSlides: [
+                        app.presentation.slides[index2-1].slideId
+                    ]
+                }
+                count = 0
+                break 
             }
             count += 1
         }
     }
-    const newPresentation = app.presentation
-    return newPresentation
+    return {
+        ...app,
+        presentation: newPresentation
+    }
 }
 
 export function moveSlide(app: AppType, slidePosition: number): Presentation {
@@ -221,6 +251,68 @@ export function changeBackgroundImgSlide(app: AppType, img: string): Presentatio
     return newPresentation
 }
 
+function changeText(app: AppType, text: string): Presentation {
+    let idSelectSlide = app.presentation.selectSlides[0]
+    for (let index = 0; index != app.presentation.slides.length; index++) {
+        if (idSelectSlide == app.presentation.slides[index].slideId) {
+            const defaultBlock: Block = {
+                blockSize: {
+                    height: 100,
+                    width: 100
+                },
+                position: {
+                    x: 100,
+                    y: 100
+                },
+                element: {
+                    elementId: makeId(),
+                    primitive: {
+                        colourBack: '',
+                        colourLine: '',
+                        primitiveType: ''
+                    },
+                    src: '',
+                    text: {
+                        bold: false,
+                        colorText: 'black',
+                        content: text,
+                        fontFamily: '',
+                        italic: false,
+                        size: 20,
+                        underline: false
+                    }
+                }
+            }
+            const slide: Slide = {
+                slideId: idSelectSlide,
+                background: app.presentation.slides[index].background,
+                blocks: [
+                    ...app.presentation.slides[index].blocks.slice(0),
+                    defaultBlock
+                ]
+            }
+            app.presentation = {
+                ...app.presentation,
+                slides: [
+                    ...app.presentation.slides.slice(0, index),
+                    slide,
+                    ...app.presentation.slides.slice(index + 1)
+                ]
+            }
+        }
+    }
+    const newPresentation = app.presentation
+    return newPresentation
+}
+
+export function addText(app: AppType, text: string): AppType {
+    const newPresentation = changeText(app, text)
+    return {
+        ...app,
+        presentation: newPresentation 
+    }
+}
+
 function addPrimitiveType(app: AppType, primitiveType: string): Presentation {
     if (app.presentation.selectSlides.length == 1) {
         let idSelectSlide = app.presentation.selectSlides[0]
@@ -228,15 +320,15 @@ function addPrimitiveType(app: AppType, primitiveType: string): Presentation {
             if (idSelectSlide == app.presentation.slides[index].slideId) {
                 const defaultBlock: Block = {
                     position: {
-                        x: 100,
-                        y: 100
+                        x: 10,
+                        y: 10
                     },
                     blockSize: {
                         width: 100,
                         height: 100
                     },
                     element: {
-                        elementId: idSelectSlide,
+                        elementId: makeId(),
                         src: '',
                         text: {
                             size: 0,
@@ -249,7 +341,7 @@ function addPrimitiveType(app: AppType, primitiveType: string): Presentation {
                         },
                         primitive: {
                             primitiveType: primitiveType,
-                            colourBack: '#fff',
+                            colourBack: 'red',
                             colourLine: '#000'
                         }
                     }
@@ -277,17 +369,25 @@ function addPrimitiveType(app: AppType, primitiveType: string): Presentation {
     return newPresentation
 }
 
-export function addPrimitive(app: AppType, primitiveType: string): Presentation {
+export function addPrimitive(app: AppType, primitiveType: string): AppType {
     addUndo(app, app.presentation)
-    if (primitiveType == 'circle') {
-        addPrimitiveType(app, primitiveType)
-    } else if (primitiveType == 'triangle') {
-        addPrimitiveType(app, primitiveType)
-    } else if (primitiveType == 'rectangle') {
-        addPrimitiveType(app, primitiveType)
+    let newPresentation: Presentation = {
+        selectElements: [],
+        selectSlides: [],
+        slides: [],
+        title: ''
     }
-    const newPresentation = app.presentation
-    return newPresentation
+    if (primitiveType == 'circle') {
+        newPresentation = addPrimitiveType(app, primitiveType)
+    } else if (primitiveType == 'triangle') {
+        newPresentation = addPrimitiveType(app, primitiveType)
+    } else if (primitiveType == 'rectangle') {
+        newPresentation = addPrimitiveType(app, primitiveType)
+    }
+    return {
+        ...app,
+        presentation: newPresentation
+    }
 }
 
 export function editPrimitiveColorline(app: AppType, colorLine: string, elementId: string): Presentation {
@@ -339,6 +439,69 @@ export function editPrimitiveColorline(app: AppType, colorLine: string, elementI
     }
     const newPresentation = app.presentation
     return newPresentation
+}
+
+function changeImg(app: AppType, src: string): Presentation {
+    let idSelectSlide = app.presentation.selectSlides[0]
+    for (let index = 0; index != app.presentation.slides.length; index++) {
+        if (idSelectSlide == app.presentation.slides[index].slideId) {
+            const defaultBlock: Block = {
+                blockSize: {
+                    height: 100,
+                    width: 150
+                },
+                position: {
+                    x: 100,
+                    y: 100
+                },
+                element: {
+                    elementId: makeId(),
+                    primitive: {
+                        colourBack: '',
+                        colourLine: '',
+                        primitiveType: ''
+                    },
+                    src: src,
+                    text: {
+                        bold: false,
+                        colorText: 'black',
+                        content: '',
+                        fontFamily: '',
+                        italic: false,
+                        size: 12,
+                        underline: false
+                    }
+                }
+            }
+            const slide: Slide = {
+                slideId: idSelectSlide,
+                background: app.presentation.slides[index].background,
+                blocks: [
+                    ...app.presentation.slides[index].blocks.slice(0),
+                    defaultBlock
+                ]
+            }
+            app.presentation = {
+                ...app.presentation,
+                slides: [
+                    ...app.presentation.slides.slice(0, index),
+                    slide,
+                    ...app.presentation.slides.slice(index + 1)
+                ]
+            }
+        }
+    }
+    const newPresentation = app.presentation
+    return newPresentation
+}
+
+export function addImg(app: AppType, src: string): AppType {
+    addUndo(app, app.presentation)
+    const newPresentation = changeImg(app, src)
+    return {
+        ...app,
+        presentation: newPresentation
+    }
 }
 
 export function editPrimitiveColorback(app: AppType, colorBack: string, elementId: string): Presentation {
