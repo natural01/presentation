@@ -4,6 +4,21 @@
   justify-content: space-evenly;
 }
 
+.switch {
+  font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+  width: 100px;
+  height: 40px;
+  border-radius: 5%;
+  border: solid transparent;
+  background-color: #6085cf;
+  display: inline-block
+}
+
+.blockSwitch {
+  display: flex;
+  justify-content: space-around;
+}
+
 .button {
   font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
   width: 100px;
@@ -66,6 +81,15 @@
 .lineHorizon {
   margin: 10px 0;
   border-bottom: 1px solid #dadce0;
+}
+
+.dropArea {
+  width: 80vw;
+  height: 80vh;
+  border: 5px dashed black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lineVertical {
@@ -164,4 +188,71 @@
   -moz-border-radius: 50px;
 	-webkit-border-radius: 50px;
 	border-radius: 50px;
+}
+
+.inputText {
+  width: 100%; 
+  border: none;
+  outline: none;
+}
+
+.changeMenu {
+  margin-left: 1%;
+  width: 165px;
+}
+
+.changeMenu-top {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.changeMenu-block{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 115px;
+  margin-bottom: 10px;
+}
+
+.color-white {
+  height: 10px;
+  width: 10px;
+  border: 3px solid #dadce0;
+  background-color: white;
+}
+.color-silver {
+  height: 10px;
+  width: 10px;
+  border: 3px solid #dadce0;
+  background-color: silver;
+}
+.color-black {
+  height: 10px;
+  width: 10px;
+  border: 3px solid #dadce0;
+  background-color: black;
+}
+.color-blue {
+  height: 10px;
+  width: 10px;
+  border: 3px solid #dadce0;
+  background-color: blue;
+}
+.color-red {
+  height: 10px;
+  width: 10px;
+  border: 3px solid #dadce0;
+  background-color: red;
+}
+.color-pink {
+  height: 10px;
+  width: 10px;
+  border: 3px solid #dadce0;
+  background-color: pink;
+}
+.color-yellow {
+  height: 10px;
+  width: 10px;
+  border: 3px solid #dadce0;
+  background-color: yellow;
 }

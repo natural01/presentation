@@ -193,7 +193,7 @@ export function moveSlide(app: AppType, slidePosition: number): Presentation {
     return newPresentation
 }
 
-export function changeBackgroundColorSlide(app: AppType, color: string): Presentation {
+export function changeBackgroundColorSlide(app: AppType, color: string): AppType {
     addUndo(app, app.presentation)
     for (let countSelectSlide = 0; countSelectSlide != app.presentation.selectSlides.length; countSelectSlide++) {
         let idSelectSlide = app.presentation.selectSlides[countSelectSlide]
@@ -219,7 +219,10 @@ export function changeBackgroundColorSlide(app: AppType, color: string): Present
         }
     }
     const newPresentation = app.presentation
-    return newPresentation
+    return {
+        ...app,
+        presentation: newPresentation
+    }
 }
 
 export function changeBackgroundImgSlide(app: AppType, img: string): Presentation {
@@ -249,6 +252,51 @@ export function changeBackgroundImgSlide(app: AppType, img: string): Presentatio
     }
     const newPresentation = app.presentation
     return newPresentation
+}
+
+export function changeThisText(app: AppType, text: string): AppType {
+    let idSelectSlide = app.presentation.selectSlides[0]
+    let idSelectElem = app.presentation.selectElements[0]
+    let count2 = 0
+    for (let index1 = 0; index1 != app.presentation.slides.length; index1++) {
+        for (let index2 = 0; index2 != app.presentation.slides[index1].blocks.length; index2++) {
+            if (idSelectElem == app.presentation.slides[index1].blocks[index2].element.elementId) {
+                const defaultBlock: Block = {
+                    ...app.presentation.slides[index1].blocks[index2], 
+                    element:{
+                        ...app.presentation.slides[index1].blocks[index2].element,
+                        text: {
+                            ...app.presentation.slides[index1].blocks[index2].element.text,
+                            content: text 
+                        }
+                    }
+                }
+                const slide: Slide = {
+                    slideId: idSelectSlide,
+                    background: app.presentation.slides[index1].background,
+                    blocks: [
+                        ...app.presentation.slides[index1].blocks.slice(0, count2),
+                        defaultBlock,
+                        ...app.presentation.slides[index1].blocks.slice(count2+1)
+                    ]
+                }
+                app.presentation = {
+                    ...app.presentation,
+                    slides: [
+                        ...app.presentation.slides.slice(0, index1),
+                        slide,
+                        ...app.presentation.slides.slice(index1 + 1)
+                    ]
+                }
+            }
+            count2 =+ 1
+        }
+    }
+    const newPresentation = app.presentation
+    return {
+        ...app,
+        presentation: newPresentation
+    }
 }
 
 function changeText(app: AppType, text: string): Presentation {
@@ -553,6 +601,7 @@ export function editPrimitiveColorback(app: AppType, colorBack: string, elementI
     const newPresentation = app.presentation
     return newPresentation
 }
+
 
 export function delElements(app: AppType): Presentation {
     addUndo(app, app.presentation)
